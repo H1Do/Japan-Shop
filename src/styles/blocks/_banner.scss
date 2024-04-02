@@ -1,0 +1,19 @@
+.banner {
+  background: url('/src/images/main-bg.png') center / cover no-repeat;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+    text-align: center;
+    margin-inline: auto;
+
+    padding-block: 268px 290px;
+  }
+
+  &__title {
+    color: var(--gray-color);
+    font-size: 64px;
+  }
+}

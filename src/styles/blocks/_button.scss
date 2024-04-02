@@ -1,0 +1,23 @@
+.button {
+  max-height: 49px;
+  padding: 4px 32px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--blue-color);
+
+  color: var(--gray-color);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+    background-color: var(--pink-color);
+    color: var(--black-color);
+  }
+}
+
+a.button {
+  @include reset-link;
+  color: var(--gray-color);
+}

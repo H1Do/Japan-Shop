@@ -1,7 +1,15 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/styles.scss';
+import Main from './pages/Main';
 
 function App() {
-  return <></>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="" element={<Main />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
