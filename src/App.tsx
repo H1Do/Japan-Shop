@@ -1,18 +1,22 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/styles.scss';
 import AppRouter from './components/AppRouter';
-import { AuthContext } from './context';
+import { MainContext } from './context';
 import { useState } from 'react';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [contextValue, setContextValue] = useState({
+    isAuth: false,
+    cart: [],
+    favorite: [],
+  });
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
+    <MainContext.Provider value={{ contextValue, setContextValue }}>
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>
-    </AuthContext.Provider>
+    </MainContext.Provider>
   );
 }
 

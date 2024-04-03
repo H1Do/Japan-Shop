@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
 import Button from './UI/Button/Button';
 import { FormEvent, useContext } from 'react';
-import { AuthContext } from '../context';
+import { MainContext } from '../context';
 
 const SignInContent = () => {
-  const { setIsAuth } = useContext(AuthContext);
+  const { contextValue, setContextValue } = useContext(MainContext);
 
   const login = (event: FormEvent) => {
     event.preventDefault();
-    setIsAuth(true);
+    setContextValue((prevState) => ({
+      ...prevState, // сохраняем предыдущее состояние
+      isAuth: true, // обновляем только необходимое состояние
+    }));
   };
 
   return (
