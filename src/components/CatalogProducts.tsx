@@ -22,6 +22,7 @@ const CatalogProducts = () => {
         setProducts(result.data.books);
       });
     }
+    setPage(1);
   }, [query]);
 
   const showedProducts = useMemo(
@@ -84,12 +85,16 @@ const CatalogProducts = () => {
               ))
             : 'Книг не найдено'}
         </ul>
-        <Pagination
-          className="catalog-products__pagination"
-          totalPages={products.length / 9}
-          currentPage={page}
-          setPage={setPage}
-        />
+        {products.length / 9 > 1 ? (
+          <Pagination
+            className="catalog-products__pagination"
+            totalPages={products.length / 9}
+            currentPage={page}
+            setPage={setPage}
+          />
+        ) : (
+          ''
+        )}
       </main>
     </section>
   );

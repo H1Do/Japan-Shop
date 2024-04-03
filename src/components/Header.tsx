@@ -46,7 +46,7 @@ const Header = ({ selectedItem }: Props) => {
                 : 'header__menu-item'
             }
           >
-            <Link to="/login" className="header__menu-link">
+            <Link to="/signin" className="header__menu-link">
               Войти
             </Link>
           </li>

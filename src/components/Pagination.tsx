@@ -19,7 +19,7 @@ const Pagination = ({
     <div className={`${className} pagination`} {...args}>
       <ol className="pagination__list">
         {createRange(1, totalPages).map((pageNumber) => (
-          <li className="pagination__item">
+          <li className="pagination__item" key={pageNumber}>
             <Button
               className={`pagination__button ${currentPage === pageNumber ? 'pagination__button--selected' : ''}`}
               onClick={() => setPage(pageNumber)}
