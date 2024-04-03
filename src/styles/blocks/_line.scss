@@ -1,0 +1,33 @@
+.line {
+  padding-block: 64px;
+  text-align: center;
+
+  &__title {
+    font-size: 42px;
+    color: var(--blue-color);
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__description {
+    font-weight: 500;
+    color: var(--dark-gray-color);
+
+    &:not(:last-child) {
+      margin-bottom: 48px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    column-gap: 32px;
+
+    &-item {
+      flex-shrink: 0;
+
+      box-shadow: 6px 6px 15px var(--dark-gray-color);
+    }
+  }
+}
