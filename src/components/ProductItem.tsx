@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Button from './UI/Button/Button';
 
 interface Props {
@@ -8,14 +9,16 @@ interface Props {
 const ProductItem = ({ className, item, ...args }: Props) => {
   return (
     <li className={`${className} product-item`} {...args}>
-      <img
-        src={item.image}
-        alt=""
-        width="311"
-        height="509"
-        loading="lazy"
-        className="product-item__image"
-      />
+      <Link to={'/catalog/' + parseInt(item.id)} className="product-item__link">
+        <img
+          src={item.image}
+          alt=""
+          width="311"
+          height="509"
+          loading="lazy"
+          className="product-item__image"
+        />
+      </Link>
       <div className="product-item__name">
         {item.title.slice(20) ? item.title.slice(0, 20) + '...' : item.title}
       </div>

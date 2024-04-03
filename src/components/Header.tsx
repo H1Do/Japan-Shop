@@ -9,7 +9,7 @@ const Header = ({ selectedItem }: Props) => {
     <header className="header container">
       <Link to="/" className="header__logo logo">
         <img
-          src="./src/images/logo.svg"
+          src="/src/images/logo.svg"
           alt="Bookstore"
           width="178"
           height="43"

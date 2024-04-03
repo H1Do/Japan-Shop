@@ -13,8 +13,11 @@
   border: 1px solid var(--blue-color);
   border-radius: var(--border-radius);
 
-  &__image {
+  &__link {
     grid-area: image;
+  }
+
+  &__image {
     border: 1px solid var(--blue-color);
     border-radius: var(--border-radius);
   }
