@@ -2,7 +2,7 @@
   max-height: 49px;
   padding: 4px 32px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   background-color: var(--blue-color);
 
   color: var(--gray-color);
@@ -14,6 +14,20 @@
   @include hover {
     background-color: var(--pink-color);
     color: var(--black-color);
+  }
+
+  &--transparent {
+    color: var(--blue-color);
+    background-color: transparent;
+    border: 1px solid var(--blue-color);
+    font-size: 24px;
+    line-height: 1;
+    padding: 12px 8px;
+
+    @include hover {
+      background-color: var(--blue-color);
+      color: var(--white-color);
+    }
   }
 }
 

@@ -1,0 +1,36 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    column-gap: 13px;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__button {
+    @include flex-center;
+    font-size: 24px;
+    width: 44px;
+    padding: 8px 16px;
+
+    &:not(&--selected, &--next) {
+      color: var(--black-color);
+      border: 1px solid var(--blue-color);
+      background-color: transparent;
+
+      @include hover {
+        background-color: var(--black-color);
+        color: var(--white-color);
+        border-color: var(--black-color);
+      }
+    }
+
+    &--next {
+      width: 87px;
+    }
+  }
+}

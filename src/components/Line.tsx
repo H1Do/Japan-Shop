@@ -1,12 +1,3 @@
-type Book = {
-  id: number;
-  title: string;
-  subtitle: string;
-  author: string;
-  image: string;
-  url: string;
-};
-
 interface Props {
   title: string;
   description: string;
@@ -14,13 +5,7 @@ interface Props {
   className: string;
 }
 
-const ShopLine = ({
-  title,
-  description,
-  products,
-  className,
-  ...args
-}: Props) => {
+const Line = ({ title, description, products, className, ...args }: Props) => {
   return (
     <div className={'line ' + className} {...args}>
       <h3 className="line__title">{title}</h3>
@@ -47,4 +32,4 @@ const ShopLine = ({
   );
 };
 
-export default ShopLine;
+export default Line;

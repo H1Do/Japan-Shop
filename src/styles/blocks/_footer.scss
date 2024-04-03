@@ -1,11 +1,13 @@
 .footer {
   max-height: 408px;
   overflow-y: hidden;
+  width: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 230px 85px 90px;
+  margin-top: auto;
   background: url('/src/images/footer-bg.svg') left / cover no-repeat;
   color: var(--gray-color);
 

@@ -1,6 +1,6 @@
-import Button from './UI/button/Button';
+import Button from './UI/Button/Button';
 
-const ShopBanner = () => {
+const Banner = () => {
   return (
     <section className="banner container">
       <div className="banner__inner">
@@ -8,7 +8,7 @@ const ShopBanner = () => {
           Погрузись в<br />
           книгу с головой!
         </h2>
-        <Button isLink={true} className="banner__button">
+        <Button isLink={true} className="banner__button" pathTo="/catalog">
           Купить
         </Button>
       </div>
@@ -16,4 +16,4 @@ const ShopBanner = () => {
   );
 };
 
-export default ShopBanner;
+export default Banner;

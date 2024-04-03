@@ -1,24 +1,16 @@
-import ShopLine from './ShopLine';
-
-type Book = {
-  id: number;
-  title: string;
-  subtitle: string;
-  author: string;
-  image: string;
-  url: string;
-};
+import { Link } from 'react-router-dom';
+import ShopLine from './Line';
 
 interface Props {
   specialProducts: Array<Book>;
   newProducts: Array<Book>;
 }
 
-const ShopProducts = ({ specialProducts, newProducts }: Props) => {
+const MainProducts = ({ specialProducts, newProducts }: Props) => {
   return (
     <section className="products container">
       <div className="products__actions">
-        <a href="./" className="products__actions-favorite">
+        <Link to="/favorite" className="products__actions-favorite">
           <svg
             width="44px"
             height="44px"
@@ -36,8 +28,8 @@ const ShopProducts = ({ specialProducts, newProducts }: Props) => {
               strokeLinejoin="round"
             />
           </svg>
-        </a>
-        <a href="./" className="products__actions-cart">
+        </Link>
+        <Link to="/cart" className="products__actions-cart">
           <svg
             width="44px"
             height="44px"
@@ -53,7 +45,7 @@ const ShopProducts = ({ specialProducts, newProducts }: Props) => {
               strokeLinejoin="round"
             />
           </svg>
-        </a>
+        </Link>
       </div>
       <ShopLine
         title="Специальное предложение!"
@@ -71,4 +63,4 @@ const ShopProducts = ({ specialProducts, newProducts }: Props) => {
   );
 };
 
-export default ShopProducts;
+export default MainProducts;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import ShopBanner from './ShopBanner';
-import ShopProducts from './ShopProducts';
+import Banner from './Banner';
+import MainProducts from './MainProducts';
 import PostService from '../API/PostService';
 
-const ShopMain = () => {
+const MainContent = () => {
   const [specProd, setSpecProd] = useState([]);
   const [newProd, setNewProd] = useState([]);
 
@@ -18,10 +18,10 @@ const ShopMain = () => {
 
   return (
     <main className="content">
-      <ShopBanner />
-      <ShopProducts specialProducts={specProd} newProducts={newProd} />
+      <Banner />
+      <MainProducts specialProducts={specProd} newProducts={newProd} />
     </main>
   );
 };
 
-export default ShopMain;
+export default MainContent;

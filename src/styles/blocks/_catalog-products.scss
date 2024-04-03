@@ -1,0 +1,31 @@
+.catalog-products {
+  display: flex;
+  flex-direction: column;
+  row-gap: 83px;
+  padding: 58px 168px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 78px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__actions {
+    display: flex;
+    column-gap: 13px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 33px;
+    row-gap: 32px;
+    justify-content: space-between;
+  }
+}

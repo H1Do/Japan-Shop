@@ -1,13 +1,13 @@
-import ShopHeader from '../components/ShopHeader';
-import ShopMain from '../components/ShopMain';
-import ShopFooter from '../components/ShopFooter';
+import Header from '../components/Header';
+import MainContent from '../components/MainContent';
+import Footer from '../components/Footer';
 
 const Main = () => {
   return (
     <div className="App">
-      <ShopHeader selectedItem="main" />
-      <ShopMain />
-      <ShopFooter />
+      <Header selectedItem="main" />
+      <MainContent />
+      <Footer />
     </div>
   );
 };

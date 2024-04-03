@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
@@ -6,6 +7,8 @@ interface Props {
   pathTo?: string;
   buttonType?: 'submit' | 'reset' | 'button' | undefined;
   className: string;
+  isTransparent?: boolean;
+  onClick?: () => void;
 }
 
 const Button = ({
@@ -14,17 +17,28 @@ const Button = ({
   pathTo = './',
   buttonType = 'button',
   className,
+  isTransparent = false,
+  onClick = undefined,
   ...args
 }: Props) => {
   if (isLink) {
     return (
-      <a href={pathTo} className={'button ' + className} {...args}>
+      <Link
+        to={pathTo}
+        className={`button ${className} ${isTransparent ? 'button--transparent' : ''}`}
+        {...args}
+      >
         {children}
-      </a>
+      </Link>
     );
   }
   return (
-    <button type={buttonType} {...args}>
+    <button
+      type={buttonType}
+      className={`button ${className} ${isTransparent ? 'button--transparent' : ''}`}
+      onClick={onClick}
+      {...args}
+    >
       {children}
     </button>
   );

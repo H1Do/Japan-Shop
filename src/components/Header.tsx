@@ -1,18 +1,20 @@
+import { Link } from 'react-router-dom';
+
 interface Props {
   selectedItem: string;
 }
 
-const ShopHeader = ({ selectedItem }: Props) => {
+const Header = ({ selectedItem }: Props) => {
   return (
     <header className="header container">
-      <a href="./" className="header__logo logo">
+      <Link to="/" className="header__logo logo">
         <img
           src="./src/images/logo.svg"
           alt="Bookstore"
           width="178"
           height="43"
         />
-      </a>
+      </Link>
       <nav className="header__menu">
         <ul className="header__menu-list">
           <li
@@ -22,9 +24,9 @@ const ShopHeader = ({ selectedItem }: Props) => {
                 : 'header__menu-item'
             }
           >
-            <a href="./" className="header__menu-link">
+            <Link to="/" className="header__menu-link">
               Главная
-            </a>
+            </Link>
           </li>
           <li
             className={
@@ -33,9 +35,9 @@ const ShopHeader = ({ selectedItem }: Props) => {
                 : 'header__menu-item'
             }
           >
-            <a href="./" className="header__menu-link">
+            <Link to="/catalog" className="header__menu-link">
               Каталог
-            </a>
+            </Link>
           </li>
           <li
             className={
@@ -44,9 +46,9 @@ const ShopHeader = ({ selectedItem }: Props) => {
                 : 'header__menu-item'
             }
           >
-            <a href="./" className="header__menu-link">
+            <Link to="/login" className="header__menu-link">
               Войти
-            </a>
+            </Link>
           </li>
           <li
             className={
@@ -55,17 +57,17 @@ const ShopHeader = ({ selectedItem }: Props) => {
                 : 'header__menu-item'
             }
           >
-            <a href="./" className="header__menu-link">
+            <Link to="/orders" className="header__menu-link">
               Заказы
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
-      <a href="./" className="header__link button">
+      <Link to="/catalog" className="header__link button">
         Купить
-      </a>
+      </Link>
     </header>
   );
 };
 
-export default ShopHeader;
+export default Header;
