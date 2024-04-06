@@ -1,0 +1,33 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--black-color);
+
+  &:not(:last-child) {
+    margin-bottom: 7px;
+  }
+
+  &__add-cart-button {
+    @include flex-center;
+    border: none;
+  }
+
+  &__delete-button {
+    @include flex-center;
+    border: none;
+  }
+
+  &__image {
+    border-radius: var(--border-radius);
+    border: 1px solid var(--black-color);
+  }
+
+  &__price {
+    font-size: 34px;
+    font-weight: 700;
+    margin-left: auto;
+  }
+}
