@@ -5,8 +5,9 @@ const Banner = () => {
     <section className="banner container">
       <div className="banner__inner">
         <h2 className="banner__title">
-          Погрузись в<br />
-          книгу с головой!
+          Собери свою
+          <br />
+          коллекцию!
         </h2>
         <Button isLink={true} className="banner__button" pathTo="/catalog">
           Купить

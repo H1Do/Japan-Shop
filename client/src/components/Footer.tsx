@@ -5,14 +5,14 @@ const Footer = () => {
         <a href="./" className="footer__logo logo">
           <img
             src="./src/images/logo-alt.svg"
-            alt="Bookstore"
-            width="178"
-            height="43"
+            alt="Japstore"
+            width="158"
+            height="41"
             loading="lazy"
           />
         </a>
         <div className="footer__description">
-          Bookstore начал свою работу в 2003 году
+          Japstore начал свою работу в 2003 году
         </div>
       </div>
       <div className="footer__about-us">

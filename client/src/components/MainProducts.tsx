@@ -49,13 +49,13 @@ const MainProducts = ({ specialProducts, newProducts }: Props) => {
       </div>
       <ShopLine
         title="Специальное предложение!"
-        description="Получи наши самые востребованные книги"
+        description="Получи наши самые востребованные товары"
         className="products__line"
         products={specialProducts}
       />
       <ShopLine
         title="Новинки!"
-        description="Получи наши самые новые книги"
+        description="Получи наши самые новые товары"
         className="products__line"
         products={newProducts}
       />
