@@ -9,6 +9,7 @@ function App() {
     isAuth: false,
     cart: [],
     favorite: [],
+    orders: [],
   });
 
   return (

@@ -4,4 +4,5 @@ export const MainContext = createContext({
   isAuth: false,
   cart: [],
   favorite: [],
+  orders: [],
 });

@@ -8,6 +8,7 @@ interface Props {
   buttonType?: 'submit' | 'reset' | 'button' | undefined;
   className: string;
   isTransparent?: boolean;
+  isSvg?: boolean;
   onClick?: () => void;
 }
 
@@ -18,6 +19,7 @@ const Button = ({
   buttonType = 'button',
   className,
   isTransparent = false,
+  isSvg = false,
   onClick = undefined,
   ...args
 }: Props) => {
@@ -25,7 +27,7 @@ const Button = ({
     return (
       <Link
         to={pathTo}
-        className={`button ${className} ${isTransparent ? 'button--transparent' : ''}`}
+        className={`button ${className} ${isTransparent ? 'button--transparent' : ''} ${isSvg ? 'button--svg' : ''}`}
         {...args}
       >
         {children}
@@ -35,7 +37,7 @@ const Button = ({
   return (
     <button
       type={buttonType}
-      className={`button ${className} ${isTransparent ? 'button--transparent' : ''}`}
+      className={`button ${className} ${isTransparent ? 'button--transparent' : ''} ${isSvg ? 'button--svg' : ''}`}
       onClick={onClick}
       {...args}
     >

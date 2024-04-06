@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from './UI/Button/Button';
 import PostService from '../API/PostService';
 import { useNavigate } from 'react-router-dom';
+import { MainContext } from './../context/index';
 
 interface Props {
   id: string;
 }
 
 const ProductInfoContent = ({ id }: Props) => {
+  const { contextValue, setContextValue } = useContext(MainContext);
   const navigate = useNavigate();
 
   const [bookData, setBookData] = useState<BookExtended>({
@@ -44,7 +46,7 @@ const ProductInfoContent = ({ id }: Props) => {
           </h2>
           <Button
             className="product-info__close-button"
-            isTransparent={true}
+            isSvg={true}
             onClick={() => navigate(-1)}
           >
             <svg
@@ -87,7 +89,16 @@ const ProductInfoContent = ({ id }: Props) => {
         </main>
         <footer className="product-info__footer">
           <div className="product-info__price">10$</div>
-          <Button className="product-info__favorite-button">
+          <Button
+            className="product-info__favorite-button"
+            isSvg={true}
+            onClick={() =>
+              setContextValue((prevValue) => ({
+                ...prevValue,
+                favorite: [...prevValue.favorite, bookData.id],
+              }))
+            }
+          >
             <svg
               width="44px"
               height="44px"
@@ -106,7 +117,15 @@ const ProductInfoContent = ({ id }: Props) => {
               />
             </svg>
           </Button>
-          <Button className="product-info__cart-button">
+          <Button
+            className="product-info__cart-button"
+            onClick={() =>
+              setContextValue((prevValue) => ({
+                ...prevValue,
+                cart: [...prevValue.cart, bookData.id],
+              }))
+            }
+          >
             Добавить в корзину
           </Button>
         </footer>

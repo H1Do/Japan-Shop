@@ -29,9 +29,41 @@
       color: var(--white-color);
     }
   }
+
+  &--svg {
+    @include flex-center;
+
+    color: var(--black-color);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    min-width: 44px;
+    aspect-ratio: 1;
+
+    @include hover {
+      color: var(--pink-color);
+      background-color: transparent;
+    }
+  }
 }
 
 a.button {
   @include reset-link;
   color: var(--gray-color);
+
+  &--svg {
+    @include flex-center;
+
+    color: var(--black-color);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    min-width: 44px;
+    aspect-ratio: 1;
+
+    @include hover {
+      color: var(--pink-color);
+      background-color: transparent;
+    }
+  }
 }

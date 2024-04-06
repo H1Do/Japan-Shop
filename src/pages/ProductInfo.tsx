@@ -4,7 +4,6 @@ import ProductInfoContent from '../components/ProductInfoContent';
 
 const ProductInfo = () => {
   const params = useParams();
-  console.log(params.id);
 
   return (
     <div className="App">

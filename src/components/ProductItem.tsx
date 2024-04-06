@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from './UI/Button/Button';
+import { MainContext } from '../context';
+import { useContext } from 'react';
 
 interface Props {
   className: string;
@@ -7,6 +9,8 @@ interface Props {
 }
 
 const ProductItem = ({ className, item, ...args }: Props) => {
+  const { contextValue, setContextValue } = useContext(MainContext);
+
   return (
     <li className={`${className} product-item`} {...args}>
       <Link to={'/catalog/' + parseInt(item.id)} className="product-item__link">
@@ -23,7 +27,15 @@ const ProductItem = ({ className, item, ...args }: Props) => {
         {item.title.slice(20) ? item.title.slice(0, 20) + '...' : item.title}
       </div>
       <div className="product-item__price">10$</div>
-      <Button className="product-item__favorite-button">
+      <Button
+        className="product-item__favorite-button"
+        onClick={() =>
+          setContextValue((prevValue) => ({
+            ...prevValue,
+            favorite: [...prevValue.favorite, item.id],
+          }))
+        }
+      >
         <svg
           width="44px"
           height="44px"
@@ -42,7 +54,16 @@ const ProductItem = ({ className, item, ...args }: Props) => {
           />
         </svg>
       </Button>
-      <Button className="product-item__cart-button" isTransparent={true}>
+      <Button
+        className="product-item__cart-button"
+        isTransparent={true}
+        onClick={() =>
+          setContextValue((prevValue) => ({
+            ...prevValue,
+            cart: [...prevValue.cart, item.id],
+          }))
+        }
+      >
         Добавить в корзину
       </Button>
     </li>
