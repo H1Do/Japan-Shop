@@ -11,7 +11,12 @@ class FigureController {
       let fileName = uuid.v4() + '.jpg';
       img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
-      const figure = await Figure.create({ name, price, brandId, img });
+      const figure = await Figure.create({
+        name,
+        price,
+        brandId,
+        img: fileName,
+      });
 
       if (info) {
         info = JSON.parse(info);
