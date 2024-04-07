@@ -16,11 +16,23 @@ const Favorite = sequelize.define('favorite', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
+const OrderList = sequelize.define('order_list', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
+const Order = sequelize.define('order', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
 const BasketFigure = sequelize.define('basket_figure', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
 const FavoriteFigure = sequelize.define('favorite_figure', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
+const OrderFigure = sequelize.define('order_figure', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
@@ -48,11 +60,20 @@ Basket.belongsTo(User);
 User.hasOne(Favorite);
 Favorite.belongsTo(User);
 
+User.hasOne(OrderList);
+OrderList.belongsTo(User);
+
 Basket.hasMany(BasketFigure);
 BasketFigure.belongsTo(Basket);
 
 Favorite.hasMany(FavoriteFigure);
 FavoriteFigure.belongsTo(Favorite);
+
+OrderList.hasMany(Order);
+Order.belongsTo(OrderList);
+
+Order.hasMany(OrderFigure);
+OrderFigure.belongsTo(Order);
 
 Brand.hasMany(Figure);
 Figure.belongsTo(Brand);
@@ -60,25 +81,25 @@ Figure.belongsTo(Brand);
 Figure.hasMany(FigureInfo, { as: 'info' });
 FigureInfo.belongsTo(Figure);
 
-BasketFigure.hasOne(Figure);
-Figure.belongsTo(BasketFigure);
+Figure.hasMany(BasketFigure);
+BasketFigure.belongsTo(Figure);
 
-FavoriteFigure.hasOne(Figure);
-Figure.belongsTo(FavoriteFigure);
+Figure.hasMany(FavoriteFigure);
+FavoriteFigure.belongsTo(Figure);
 
-// Figure.hasMany(BasketFigure);
-// BasketFigure.belongsTo(Figure);
-
-// Figure.hasMany(FavoriteFigure);
-// FavoriteFigure.belongsTo(Figure);
+Figure.hasMany(OrderFigure);
+OrderFigure.belongsTo(Figure);
 
 module.exports = {
   User,
   Basket,
   Favorite,
   Figure,
+  OrderList,
+  Order,
   BasketFigure,
   FavoriteFigure,
+  OrderFigure,
   Brand,
   FigureInfo,
 };
