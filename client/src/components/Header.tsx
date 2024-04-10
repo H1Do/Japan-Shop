@@ -1,13 +1,21 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MainContext } from '../context';
+import { observer } from 'mobx-react-lite';
 
 interface Props {
   selectedItem: string;
 }
 
-const Header = ({ selectedItem }: Props) => {
+const Header = observer(({ selectedItem }: Props) => {
   const { user } = useContext(MainContext);
+
+  const logOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+    user.setIsAdmin(false);
+    localStorage.removeItem('token');
+  };
 
   return (
     <header className="header container">
@@ -57,7 +65,7 @@ const Header = ({ selectedItem }: Props) => {
                 </Link>
               </li>
               <li className="header__menu-item">
-                <Link to="/logout" className="header__menu-link">
+                <Link to="/" className="header__menu-link" onClick={logOut}>
                   Выйти
                 </Link>
               </li>
@@ -70,7 +78,7 @@ const Header = ({ selectedItem }: Props) => {
                   : 'header__menu-item'
               }
             >
-              <Link to="/signin" className="header__menu-link">
+              <Link to="/login" className="header__menu-link">
                 Войти
               </Link>
             </li>
@@ -97,6 +105,6 @@ const Header = ({ selectedItem }: Props) => {
       </Link>
     </header>
   );
-};
+});
 
 export default Header;

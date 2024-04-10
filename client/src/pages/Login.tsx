@@ -1,11 +1,11 @@
 import Header from '../components/Header';
-import SignUpContent from './../components/SignUpContent';
+import LoginContent from '../components/LoginContent';
 
 const SignUp = () => {
   return (
     <div className="App">
       <Header selectedItem="login" />
-      <SignUpContent />
+      <LoginContent />
     </div>
   );
 };

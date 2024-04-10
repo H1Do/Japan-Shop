@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 export default class UserStore implements UsStore {
-  private _isAuth: boolean = true;
+  private _isAuth: boolean = false;
   private _isAdmin: boolean = false;
   private _user: User = { email: '', password: '' };
   private _basket: Array<Figure> = [

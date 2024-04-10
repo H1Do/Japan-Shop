@@ -2,12 +2,14 @@ import { Navigate } from 'react-router-dom';
 import Catalog from '../pages/Catalog';
 import Main from '../pages/Main';
 import ProductInfo from '../pages/ProductInfo';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
+import Login from '../pages/Login';
 import Cart from '../pages/Cart';
 import Favorite from '../pages/Favorite';
 import Orders from '../pages/Orders';
 import OrderInfo from '../pages/OrderInfo';
+import Admin from '../pages/Admin';
+
+export const adminRoutes = [{ path: '/admin', element: <Admin /> }];
 
 export const privateRoutes = [
   { path: '/', element: <Main /> },
@@ -24,8 +26,7 @@ export const privateRoutes = [
 export const publicRoutes = [
   { path: '/', element: <Main /> },
   { path: '/catalog', element: <Catalog /> },
-  { path: '/signin', element: <SignIn /> },
-  { path: '/signup', element: <SignUp /> },
+  { path: '/login', element: <Login /> },
   { path: '/catalog/:id', element: <ProductInfo /> },
-  { path: '*', element: <Navigate to="/signin" replace /> },
+  { path: '*', element: <Navigate to="/login" replace /> },
 ];

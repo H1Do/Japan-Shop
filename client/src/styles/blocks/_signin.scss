@@ -55,7 +55,17 @@
     }
 
     &-link {
+      @include reset-button;
+
+      cursor: pointer;
+      font-size: 24px;
+      font-weight: 400;
       align-self: start;
+
+      @include hover {
+        background-color: transparent;
+        color: var(--pink-color);
+      }
     }
 
     &-link {
