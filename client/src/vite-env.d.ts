@@ -1,24 +1,47 @@
 /// <reference types="vite/client" />
-type Book = {
-  id: string;
-  title: string;
-  subtitle: string;
-  author: string;
-  image: string;
-  url: string;
+
+type Figure = {
+  id: number;
+  name: string;
+  price: number;
+  img: string;
 };
 
-type BookExtended = {
-  status: string;
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  authors: string;
-  publisher: string;
-  pages: string;
-  year: string;
-  image: string;
-  url: string;
-  download: string;
+interface UsStore {
+  setIsAuth: (arg: boolean) => void;
+  setIsAdmin: (arg: boolean) => void;
+  setUser: (arg: User) => void;
+  setBasket: (arg: Array<Figure>) => void;
+  setFavorite: (arg: Array<Figure>) => void;
+  setOrders: (arg: Array<Order>) => void;
+  isAuth: boolean;
+  isAdmin: boolean;
+  user: User;
+  basket: Array<Figure>;
+  favorite: Array<Figure>;
+  orders: Array<Order>;
+}
+
+interface FgStore {
+  setBrands: (arg: Array<Brand>) => void;
+  setFigures: (arg: Array<Figure>) => void;
+  brands: Array<Brand>;
+  figures: Array<Figure>;
+}
+
+type User = {
+  email: string;
+  password: string;
+};
+
+type Brand = {
+  id: number;
+  name: string;
+};
+
+type Order = {
+  id: number;
+  date: number;
+  price: number;
+  figures: Array<Figure>;
 };
