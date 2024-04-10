@@ -5,17 +5,18 @@ import { useContext } from 'react';
 
 interface Props {
   className: string;
-  item: Book;
+  item: Figure;
 }
 
 const ProductItem = ({ className, item, ...args }: Props) => {
-  const { contextValue, setContextValue } = useContext(MainContext);
+  const { user } = useContext(MainContext);
+  console.log(user);
 
   return (
     <li className={`${className} product-item`} {...args}>
-      <Link to={'/catalog/' + parseInt(item.id)} className="product-item__link">
+      <Link to={'/catalog/' + item.id} className="product-item__link">
         <img
-          src={item.image}
+          src={item.img}
           alt=""
           width="311"
           height="509"
@@ -24,17 +25,12 @@ const ProductItem = ({ className, item, ...args }: Props) => {
         />
       </Link>
       <div className="product-item__name">
-        {item.title.slice(20) ? item.title.slice(0, 20) + '...' : item.title}
+        {item.name.slice(20) ? item.name.slice(0, 20) + '...' : item.name}
       </div>
       <div className="product-item__price">10$</div>
       <Button
         className="product-item__favorite-button"
-        onClick={() =>
-          setContextValue((prevValue) => ({
-            ...prevValue,
-            favorite: [...prevValue.favorite, item.id],
-          }))
-        }
+        onClick={() => user.setFavorite([...user.favorite, item])}
       >
         <svg
           width="44px"
@@ -57,12 +53,7 @@ const ProductItem = ({ className, item, ...args }: Props) => {
       <Button
         className="product-item__cart-button"
         isTransparent={true}
-        onClick={() =>
-          setContextValue((prevValue) => ({
-            ...prevValue,
-            cart: [...prevValue.cart, item.id],
-          }))
-        }
+        onClick={() => user.setBasket([...user.basket, item])}
       >
         Добавить в корзину
       </Button>

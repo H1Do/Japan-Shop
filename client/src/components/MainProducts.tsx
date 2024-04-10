@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import ShopLine from './Line';
 
 interface Props {
-  specialProducts: Array<Book>;
-  newProducts: Array<Book>;
+  specialProducts: Array<Figure>;
+  newProducts: Array<Figure>;
 }
 
 const MainProducts = ({ specialProducts, newProducts }: Props) => {

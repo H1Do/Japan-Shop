@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { MainContext } from '../context';
 
 interface Props {
   selectedItem: string;
 }
 
 const Header = ({ selectedItem }: Props) => {
+  const { user } = useContext(MainContext);
+
   return (
     <header className="header container">
       <Link to="/" className="header__logo logo">
@@ -39,28 +43,53 @@ const Header = ({ selectedItem }: Props) => {
               Каталог
             </Link>
           </li>
-          <li
-            className={
-              selectedItem === 'login'
-                ? 'header__menu-item is-selected'
-                : 'header__menu-item'
-            }
-          >
-            <Link to="/signin" className="header__menu-link">
-              Войти
-            </Link>
-          </li>
-          <li
-            className={
-              selectedItem === 'orders'
-                ? 'header__menu-item is-selected'
-                : 'header__menu-item'
-            }
-          >
-            <Link to="/orders" className="header__menu-link">
-              Заказы
-            </Link>
-          </li>
+          {user.isAuth ? (
+            <>
+              <li
+                className={
+                  selectedItem === 'orders'
+                    ? 'header__menu-item is-selected'
+                    : 'header__menu-item'
+                }
+              >
+                <Link to="/orders" className="header__menu-link">
+                  Заказы
+                </Link>
+              </li>
+              <li className="header__menu-item">
+                <Link to="/logout" className="header__menu-link">
+                  Выйти
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li
+              className={
+                selectedItem === 'login'
+                  ? 'header__menu-item is-selected'
+                  : 'header__menu-item'
+              }
+            >
+              <Link to="/signin" className="header__menu-link">
+                Войти
+              </Link>
+            </li>
+          )}
+          {user.isAdmin ? (
+            <li
+              className={
+                selectedItem === 'admin'
+                  ? 'header__menu-item is-selected'
+                  : 'header__menu-item'
+              }
+            >
+              <Link to="/admin" className="header__menu-link">
+                Административная панель
+              </Link>
+            </li>
+          ) : (
+            ''
+          )}
         </ul>
       </nav>
       <Link to="/catalog" className="header__link button">

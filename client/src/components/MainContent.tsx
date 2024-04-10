@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Banner from './Banner';
 import MainProducts from './MainProducts';
 import PostService from '../API/PostService';
+import { MainContext } from '../context';
 
 const MainContent = () => {
-  const [specProd, setSpecProd] = useState([]);
-  const [newProd, setNewProd] = useState([]);
-
-  useEffect(() => {
-    const response = PostService.getAll(7, 1);
-    response.then((result) => {
-      setSpecProd(result.data.books.slice(0, 3));
-      setNewProd(result.data.books.slice(3, 6));
-    });
-  }, []);
+  const { figure } = useContext(MainContext);
 
   return (
     <main className="content">
       <Banner />
-      <MainProducts specialProducts={specProd} newProducts={newProd} />
+      <MainProducts
+        specialProducts={figure.figures}
+        newProducts={figure.figures}
+      />
     </main>
   );
 };

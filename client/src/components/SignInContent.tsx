@@ -1,34 +1,32 @@
 import { Link } from 'react-router-dom';
 import Button from './UI/Button/Button';
-import { FormEvent, useContext } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { MainContext } from '../context';
 
 const SignInContent = () => {
-  const { contextValue, setContextValue } = useContext(MainContext);
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
-  const login = (event: FormEvent) => {
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
-    setContextValue((prevState) => ({
-      ...prevState, // сохраняем предыдущее состояние
-      isAuth: true, // обновляем только необходимое состояние
-    }));
   };
 
   return (
     <div className="signin container">
       <div className="signin__inner">
         <h2 className="signin__title">Вход</h2>
-        <form className="signin__form" onSubmit={login}>
-          <label className="visually-hidden" htmlFor="login">
-            Write login
+        <form className="signin__form" onSubmit={submit}>
+          <label className="visually-hidden" htmlFor="email">
+            Write email
           </label>
           <input
             required
             type="text"
             className="signin__form-input"
-            name="login"
-            id="login"
-            placeholder="Login"
+            name="email"
+            id="email"
+            placeholder="Email"
+            onChange={(event) => setEmail(event.target.value)}
           />
           <label className="visually-hidden" htmlFor="password">
             Write password
@@ -40,6 +38,7 @@ const SignInContent = () => {
             name="password"
             id="password"
             placeholder="Password"
+            onChange={(event) => setPassword(event.target.value)}
           />
           <Link className="signin__form-link" to="/signup">
             У меня нет аккаунта...
