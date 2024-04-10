@@ -1,26 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Button from './UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainContext } from '../context';
 import PostService from '../API/PostService';
+import { observer } from 'mobx-react-lite';
 
-const CartContent = () => {
+const CartContent = observer(() => {
   const navigate = useNavigate();
-  const { contextValue, setContextValue } = useContext(MainContext);
-  const [productsList, setProductsList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedProductsList = [];
-      for (const id of contextValue.cart) {
-        const result = await PostService.getById(parseInt(id).toString());
-        updatedProductsList.push(result.data);
-      }
-      setProductsList(updatedProductsList);
-    };
-
-    fetchData();
-  }, [contextValue.cart]);
+  const { user } = useContext(MainContext);
+  const figureList = user.basket;
 
   return (
     <div className="cart container">
@@ -52,30 +40,29 @@ const CartContent = () => {
         </header>
         <main className="cart__body">
           <ul className="cart__body-list">
-            {productsList.length
-              ? productsList.map((product) => (
+            {figureList.length
+              ? figureList.map((product: Figure) => (
                   <li className="cart__body-item item" key={product.id}>
                     <Link to={`/catalog/${product.id}`}>
                       <img
-                        src={product.image}
+                        src={product.img}
                         alt=""
                         width={47}
                         height={71}
                         className="item__image"
                       />
                     </Link>
-                    <div className="item__name">{product.title}</div>
+                    <div className="item__name">{product.name}</div>
                     <div className="item__price">10$</div>
                     <Button
                       className="item__delete-button"
                       isSvg={true}
                       onClick={() =>
-                        setContextValue((prevValue) => ({
-                          ...prevValue,
-                          cart: prevValue.cart.filter(
-                            (id) => id !== product.id,
+                        user.setBasket(
+                          user.basket.filter(
+                            (item: Figure) => item.id !== product.id,
                           ),
-                        }))
+                        )
                       }
                     >
                       <svg
@@ -120,42 +107,14 @@ const CartContent = () => {
           </ul>
         </main>
         <footer className="cart__footer">
-          <div className="cart__price">{`Всего ${productsList.length} за ${productsList.length * 10}$`}</div>
-          <Button
-            className="cart__cart-button"
-            onClick={() => {
-              if (productsList.length === 0) {
-                return false;
-              }
-              const date = new Date();
-              const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, '0');
-              const day = String(date.getDate()).padStart(2, '0');
-              const id = Date.now().toString();
-
-              const formattedDate = `${year}-${month}-${day}`;
-              setContextValue((prevValue) => ({
-                ...prevValue,
-                cart: [],
-                orders: [
-                  ...prevValue.orders,
-                  {
-                    id: id,
-                    date: formattedDate,
-                    price: productsList.length * 10,
-                    productList: contextValue.cart,
-                  },
-                ],
-              }));
-              navigate(`/orders/${id}`);
-            }}
-          >
+          <div className="cart__price">{`Всего ${figureList.length} за ${figureList.length * 10}$`}</div>
+          <Button className="cart__cart-button" onClick={() => {}}>
             Оформить заказ
           </Button>
         </footer>
       </div>
     </div>
   );
-};
+});
 
 export default CartContent;

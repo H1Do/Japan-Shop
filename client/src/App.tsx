@@ -1,19 +1,15 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './styles/styles.scss';
 import AppRouter from './components/AppRouter';
 import { MainContext } from './context';
-import { useState } from 'react';
+import UserStore from './store/UserStore';
+import FigureStore from './store/FigureStore';
 
 function App() {
-  const [contextValue, setContextValue] = useState({
-    isAuth: false,
-    cart: [],
-    favorite: [],
-    orders: [],
-  });
-
   return (
-    <MainContext.Provider value={{ contextValue, setContextValue }}>
+    <MainContext.Provider
+      value={{ user: new UserStore(), figure: new FigureStore() }}
+    >
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>

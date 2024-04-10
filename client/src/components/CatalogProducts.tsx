@@ -1,29 +1,17 @@
 import { Link } from 'react-router-dom';
 import SearchForm from './UI/SearchForm/SearchForm';
 import PostService from '../API/PostService';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import ProductItem from './ProductItem';
 import Pagination from './Pagination';
+import { MainContext } from '../context';
 
 const CatalogProducts = () => {
-  const [query, setQuery] = useState('');
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const { figure } = useContext(MainContext);
 
-  useEffect(() => {
-    if (query !== '') {
-      const response = PostService.search(query);
-      response.then((result) => {
-        setProducts(result.data.books || []);
-      });
-    } else {
-      const response = PostService.getAll();
-      response.then((result) => {
-        setProducts(result.data.books);
-      });
-    }
-    setPage(1);
-  }, [query]);
+  const [query, setQuery] = useState('');
+  const [products, setProducts] = useState(figure.figures);
+  const [page, setPage] = useState(1);
 
   const showedProducts = useMemo(
     () => products.slice((page - 1) * 9, page * 9),
@@ -76,7 +64,7 @@ const CatalogProducts = () => {
       <main className="catalog-products__body">
         <ul className="catalog-products__list">
           {products.length
-            ? showedProducts.map((item: Book) => (
+            ? showedProducts.map((item: Figure) => (
                 <ProductItem
                   className="catalog-products__item"
                   item={item}

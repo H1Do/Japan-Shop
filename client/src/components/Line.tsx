@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   title: string;
   description: string;
-  products: Array<Book>;
+  products: Array<Figure>;
   className: string;
 }
 
@@ -17,13 +17,10 @@ const Line = ({ title, description, products, className, ...args }: Props) => {
       <ul className="line__list">
         {products.map((product) => (
           <li className="line__list-item" key={product.id}>
-            <Link
-              to={`catalog/${parseInt(product.id)}`}
-              className="line__list-link"
-            >
+            <Link to={`catalog/${product.id}`} className="line__list-link">
               <img
-                src={product.image}
-                alt="book image"
+                src={product.img}
+                alt="figure image"
                 width="300"
                 height="393"
                 loading="lazy"

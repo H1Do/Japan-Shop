@@ -1,32 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MainContext } from '../context';
 import Button from './UI/Button/Button';
-import PostService from '../API/PostService';
 
 const OrderInfoContent = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { contextValue, setContextValue } = useContext(MainContext);
-  const currentOrder = contextValue.orders.find(
-    (order) => order.id === params.id,
+  const { user } = useContext(MainContext);
+  const currentOrder = user.orders.find(
+    (order: Order) => order.id.toString() === params.id,
   );
-
-  const [productsList, setProductsList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedProductsList = [];
-      for (const id of currentOrder.productList) {
-        const result = await PostService.getById(parseInt(id));
-        updatedProductsList.push(result.data);
-      }
-      setProductsList(updatedProductsList);
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div className="order-info container">
@@ -58,25 +42,25 @@ const OrderInfoContent = () => {
         </header>
         <main className="order-info__body">
           <ul className="order-info__body-list">
-            {productsList.map((product) => (
+            {currentOrder.figures.map((product: Figure) => (
               <li className="order-info__body-item item" key={product.id}>
                 <Link to={`/catalog/${product.id}`}>
                   <img
-                    src={product.image}
+                    src={product.img}
                     alt=""
                     width={47}
                     height={71}
                     className="item__image"
                   />
                 </Link>
-                <div className="item__name">{product.title}</div>
-                <div className="item__price">10$</div>
+                <div className="item__name">{product.name}</div>
+                <div className="item__price">{product.price}$</div>
               </li>
             ))}
           </ul>
         </main>
         <footer className="order-info__footer">
-          <div className="order-info__price">{`Всего ${productsList.length} за ${productsList.length * 10}$`}</div>
+          <div className="order-info__price">{`Всего ${currentOrder.figures.length} за ${currentOrder.price}$`}</div>
         </footer>
       </div>
     </div>

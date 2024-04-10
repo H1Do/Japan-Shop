@@ -3,24 +3,12 @@ import Button from './UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainContext } from '../context';
 import PostService from '../API/PostService';
+import { observer } from 'mobx-react-lite';
 
-const FavoriteContent = () => {
+const FavoriteContent = observer(() => {
   const navigate = useNavigate();
-  const { contextValue, setContextValue } = useContext(MainContext);
-  const [productsList, setProductsList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedProductsList = [];
-      for (const id of contextValue.favorite) {
-        const result = await PostService.getById(parseInt(id).toString());
-        updatedProductsList.push(result.data);
-      }
-      setProductsList(updatedProductsList);
-    };
-
-    fetchData();
-  }, [contextValue.favorite]);
+  const { user } = useContext(MainContext);
+  const productsList = user.favorite;
 
   return (
     <div className="favorite container">
@@ -53,28 +41,23 @@ const FavoriteContent = () => {
         <main className="favorite__body">
           <ul className="favorite__body-list">
             {productsList.length
-              ? productsList.map((product) => (
+              ? productsList.map((product: Figure) => (
                   <li className="favorite__body-item item" key={product.id}>
                     <Link to={`/catalog/${product.id}`}>
                       <img
-                        src={product.image}
+                        src={product.img}
                         alt=""
                         width={47}
                         height={71}
                         className="item__image"
                       />
                     </Link>
-                    <div className="item__name">{product.title}</div>
+                    <div className="item__name">{product.name}</div>
                     <div className="item__price">10$</div>
                     <Button
                       className="item__add-cart-button"
                       isSvg={true}
-                      onClick={() =>
-                        setContextValue((prevValue) => ({
-                          ...prevValue,
-                          cart: [...prevValue.cart, product.id],
-                        }))
-                      }
+                      onClick={() => user.setBasket([...user.basket, product])}
                     >
                       <svg
                         width="44px"
@@ -96,12 +79,11 @@ const FavoriteContent = () => {
                       className="item__delete-button"
                       isSvg={true}
                       onClick={() =>
-                        setContextValue((prevValue) => ({
-                          ...prevValue,
-                          favorite: prevValue.favorite.filter(
-                            (id) => id !== product.id,
+                        user.setFavorite(
+                          user.favorite.filter(
+                            (item: Figure) => item.id !== product.id,
                           ),
-                        }))
+                        )
                       }
                     >
                       <svg
@@ -151,6 +133,6 @@ const FavoriteContent = () => {
       </div>
     </div>
   );
-};
+});
 
 export default FavoriteContent;
