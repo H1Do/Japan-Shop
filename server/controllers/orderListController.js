@@ -2,7 +2,7 @@ const { OrderList, Order, OrderFigure } = require('../models/models');
 
 class OrderListController {
   async add(req, res) {
-    const { figures_id } = req.body;
+    const { figures_id, price, date } = req.body;
     const order_figures = [];
 
     const orderList = await OrderList.findOne({
@@ -10,6 +10,8 @@ class OrderListController {
     });
     const order = await Order.create({
       orderListId: orderList.id,
+      price: price,
+      date: date,
     });
     for (let figure_id of figures_id) {
       order_figures.push(
@@ -41,8 +43,9 @@ class OrderListController {
     const order = await Order.findOne({
       where: { id, orderListId: orderList.id },
     });
+
     if (order) {
-      const order_figures = await Order.findAll({
+      const order_figures = await OrderFigure.findAll({
         where: { orderId: order.id },
       });
       return res.json({ order, order_figures });
