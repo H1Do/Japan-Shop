@@ -4,25 +4,9 @@ export default class UserStore implements UsStore {
   private _isAuth: boolean = false;
   private _isAdmin: boolean = false;
   private _user: User = { email: '', password: '' };
-  private _basket: Array<Figure> = [
-    { id: 1, name: 'Hutao', price: 123, img: '/asdf' },
-    { id: 2, name: 'Kequin', price: 123, img: '/fsef' },
-  ];
-  private _favorite: Array<Figure> = [
-    { id: 1, name: 'Hutao', price: 123, img: '/asdf' },
-    { id: 2, name: 'Kequin', price: 123, img: '/fsef' },
-  ];
-  private _orders: Array<Order> = [
-    {
-      id: 1,
-      date: 7479923234,
-      price: 333,
-      figures: [
-        { id: 1, name: 'Hutao', price: 123, img: '/asdf' },
-        { id: 2, name: 'Kequin', price: 123, img: '/fsef' },
-      ],
-    },
-  ];
+  private _basket: Array<Figure> = [];
+  private _favorite: Array<Figure> = [];
+  private _orders: Array<Order> = [];
 
   constructor() {
     makeAutoObservable(this);

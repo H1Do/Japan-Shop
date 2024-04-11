@@ -1,16 +1,38 @@
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MainContext } from '../context';
 import Button from './UI/Button/Button';
+import { fetchOneOrder } from '../API/ordersAPI';
+import { fetchOneFigure } from '../API/figureAPI';
 
 const OrderInfoContent = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { user } = useContext(MainContext);
-  const currentOrder = user.orders.find(
-    (order: Order) => order.id.toString() === params.id,
-  );
+  const [currentOrder, setCurrentOrder] = useState<Order>({
+    id: 1,
+    price: 0,
+    date: 0,
+    figures: [],
+  });
+
+  useEffect(() => {
+    fetchOneOrder(params.id!).then((data) => {
+      setCurrentOrder({
+        id: data.order.id,
+        price: data.order.price,
+        date: data.order.date,
+        figures: [],
+      });
+      data.order_figures.map((item) =>
+        fetchOneFigure(item.id).then((result) =>
+          setCurrentOrder({
+            ...currentOrder,
+            figures: [...currentOrder.figures, result],
+          }),
+        ),
+      );
+    });
+  }, [params.id]);
 
   return (
     <div className="order-info container">

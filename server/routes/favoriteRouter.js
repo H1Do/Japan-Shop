@@ -4,7 +4,7 @@ const favoriteController = require('../controllers/favoriteController');
 const checkAuth = require('../middleware/authMiddleware');
 
 router.post('/', checkAuth, favoriteController.add);
-router.delete('/', checkAuth, favoriteController.delete);
+router.delete('/:id', checkAuth, favoriteController.delete);
 router.get('/', checkAuth, favoriteController.getAll);
 
 module.exports = router;

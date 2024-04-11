@@ -23,6 +23,7 @@
   &__image {
     border-radius: var(--border-radius);
     border: 1px solid var(--black-color);
+    object-fit: cover;
   }
 
   &__price {

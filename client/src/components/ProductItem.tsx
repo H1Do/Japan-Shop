@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import Button from './UI/Button/Button';
 import { MainContext } from '../context';
 import { useContext } from 'react';
+import handleAddToFavorite from '../utils/handleAddToFavorite';
+import handleAddToBasket from '../utils/handleAddToBasket';
 
 interface Props {
   className: string;
@@ -10,13 +12,12 @@ interface Props {
 
 const ProductItem = ({ className, item, ...args }: Props) => {
   const { user } = useContext(MainContext);
-  console.log(user);
 
   return (
     <li className={`${className} product-item`} {...args}>
       <Link to={'/catalog/' + item.id} className="product-item__link">
         <img
-          src={item.img}
+          src={`${import.meta.env.VITE_API_URL}${item.img}`}
           alt=""
           width="311"
           height="509"
@@ -27,10 +28,10 @@ const ProductItem = ({ className, item, ...args }: Props) => {
       <div className="product-item__name">
         {item.name.slice(20) ? item.name.slice(0, 20) + '...' : item.name}
       </div>
-      <div className="product-item__price">10$</div>
+      <div className="product-item__price">{item.price}</div>
       <Button
         className="product-item__favorite-button"
-        onClick={() => user.setFavorite([...user.favorite, item])}
+        onClick={() => handleAddToFavorite(user, item)}
       >
         <svg
           width="44px"
@@ -53,7 +54,7 @@ const ProductItem = ({ className, item, ...args }: Props) => {
       <Button
         className="product-item__cart-button"
         isTransparent={true}
-        onClick={() => user.setBasket([...user.basket, item])}
+        onClick={() => handleAddToBasket(user, item)}
       >
         Добавить в корзину
       </Button>

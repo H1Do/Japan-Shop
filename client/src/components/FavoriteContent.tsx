@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Button from './UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainContext } from '../context';
-import PostService from '../API/PostService';
 import { observer } from 'mobx-react-lite';
+import handleAddToBasket from '../utils/handleAddToBasket';
+import handleDeleteFromFavorite from '../utils/handleDeleteFromFavorite';
 
 const FavoriteContent = observer(() => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const FavoriteContent = observer(() => {
                   <li className="favorite__body-item item" key={product.id}>
                     <Link to={`/catalog/${product.id}`}>
                       <img
-                        src={product.img}
+                        src={`${import.meta.env.VITE_API_URL}/${product.img}`}
                         alt=""
                         width={47}
                         height={71}
@@ -57,7 +58,7 @@ const FavoriteContent = observer(() => {
                     <Button
                       className="item__add-cart-button"
                       isSvg={true}
-                      onClick={() => user.setBasket([...user.basket, product])}
+                      onClick={() => handleAddToBasket(user, product)}
                     >
                       <svg
                         width="44px"
@@ -78,13 +79,7 @@ const FavoriteContent = observer(() => {
                     <Button
                       className="item__delete-button"
                       isSvg={true}
-                      onClick={() =>
-                        user.setFavorite(
-                          user.favorite.filter(
-                            (item: Figure) => item.id !== product.id,
-                          ),
-                        )
-                      }
+                      onClick={() => handleDeleteFromFavorite(user, product)}
                     >
                       <svg
                         width="43.000000"

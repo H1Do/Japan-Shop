@@ -3,32 +3,9 @@ import { publicRoutes, privateRoutes, adminRoutes } from '../router';
 import { useContext, useEffect, useState } from 'react';
 import { MainContext } from '../context';
 import { observer } from 'mobx-react-lite';
-import { check } from '../API/userAPI';
 
 const AppRouter = observer(() => {
   const { user } = useContext(MainContext);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!localStorage.getItem('token')) {
-      setLoading(false);
-      return;
-    }
-    check()
-      .then((data) => {
-        user.setUser(true);
-        user.setIsAuth(true);
-
-        if (data.role === 'ADMIN') {
-          user.setIsAdmin(true);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return <div></div>;
-  }
 
   return user.isAuth ? (
     <Routes>

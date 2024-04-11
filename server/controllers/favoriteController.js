@@ -12,10 +12,10 @@ class FavoriteController {
   }
 
   async delete(req, res) {
-    const { figure_id } = req.body;
+    const { id } = req.params;
     const favorite = await Favorite.findOne({ where: { userId: req.user.id } });
     const favorite_figure = await FavoriteFigure.findOne({
-      where: { favoriteId: favorite.id, figureId: figure_id },
+      where: { favoriteId: favorite.id, figureId: id },
     });
     if (favorite_figure) {
       favorite_figure.destroy();

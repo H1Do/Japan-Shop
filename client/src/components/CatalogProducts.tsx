@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom';
 import SearchForm from './UI/SearchForm/SearchForm';
-import PostService from '../API/PostService';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import ProductItem from './ProductItem';
 import Pagination from './Pagination';
 import { MainContext } from '../context';
+import { fetchFigures } from '../API/figureAPI';
+import { observer } from 'mobx-react-lite';
 
-const CatalogProducts = () => {
-  const { figure } = useContext(MainContext);
-
+const CatalogProducts = observer(() => {
+  const { figure }: { figure: FgStore } = useContext(MainContext);
   const [query, setQuery] = useState('');
-  const [products, setProducts] = useState(figure.figures);
+  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    fetchFigures().then((data) => {
+      figure.setFigures(data.rows);
+      setProducts(figure.figures);
+    });
+  }, []);
 
   const showedProducts = useMemo(
     () => products.slice((page - 1) * 9, page * 9),
@@ -86,6 +93,6 @@ const CatalogProducts = () => {
       </main>
     </section>
   );
-};
+});
 
 export default CatalogProducts;

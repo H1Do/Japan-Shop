@@ -1,49 +1,37 @@
 import { useContext, useEffect, useState } from 'react';
 import Button from './UI/Button/Button';
-import PostService from '../API/PostService';
 import { useNavigate } from 'react-router-dom';
 import { MainContext } from './../context/index';
+import { fetchOneFigure } from '../API/figureAPI';
+import handleAddToFavorite from '../utils/handleAddToFavorite';
+import handleAddToBasket from '../utils/handleAddToBasket';
 
 interface Props {
   id: string;
 }
 
 const ProductInfoContent = ({ id }: Props) => {
-  const { contextValue, setContextValue } = useContext(MainContext);
+  const { user } = useContext(MainContext);
+  const [figure, setFigure] = useState<Figure>({
+    name: '',
+    img: '',
+    price: 0,
+    id: 0,
+  });
   const navigate = useNavigate();
 
-  const [bookData, setBookData] = useState<BookExtended>({
-    status: '',
-    id: '',
-    title: '',
-    subtitle: '',
-    description: '',
-    authors: '',
-    publisher: '',
-    pages: '',
-    year: '',
-    image: '',
-    url: '',
-    download: '',
-  });
-
   useEffect(() => {
-    PostService.getById(id).then((result) => setBookData(result.data));
-  });
+    fetchOneFigure(id).then((data: Figure) => {
+      setFigure(data);
+      console.log(data);
+    });
+  }, []);
 
   return (
     <div className="product-info container">
       <div className="product-info__inner">
         <header className="product-info__header">
-          <h2 className="product-info__title">
-            {(bookData.title.slice(20)
-              ? bookData.title.slice(0, 20) + '...'
-              : bookData.title) +
-              ' - ' +
-              (bookData.authors.slice(20)
-                ? bookData.authors.slice(0, 20) + '...'
-                : bookData.authors)}
-          </h2>
+          <h2 className="product-info__title">{figure.name}</h2>
           <Button
             className="product-info__close-button"
             isSvg={true}
@@ -69,35 +57,28 @@ const ProductInfoContent = ({ id }: Props) => {
         </header>
         <main className="product-info__body">
           <img
-            src={bookData.image}
+            src={`${import.meta.env.VITE_API_URL}${figure.img}`}
             alt=""
             width="426"
             height="573"
             className="product-info__image"
           />
           <div className="product-info__extra">
-            Год издания: {bookData.year}
+            Год издания: {}
             <br />
-            Объем: {bookData.pages} страниц
+            Объем: {}
             <br />
-            Опубликовано: {bookData.publisher}
+            Опубликовано: {}
             <br />
           </div>
-          <div className="product-info__description">
-            {bookData.description}
-          </div>
+          <div className="product-info__description">{}</div>
         </main>
         <footer className="product-info__footer">
-          <div className="product-info__price">10$</div>
+          <div className="product-info__price">{figure.price}</div>
           <Button
             className="product-info__favorite-button"
             isSvg={true}
-            onClick={() =>
-              setContextValue((prevValue) => ({
-                ...prevValue,
-                favorite: [...prevValue.favorite, bookData.id],
-              }))
-            }
+            onClick={() => handleAddToFavorite(user, figure)}
           >
             <svg
               width="44px"
@@ -119,12 +100,7 @@ const ProductInfoContent = ({ id }: Props) => {
           </Button>
           <Button
             className="product-info__cart-button"
-            onClick={() =>
-              setContextValue((prevValue) => ({
-                ...prevValue,
-                cart: [...prevValue.cart, bookData.id],
-              }))
-            }
+            onClick={() => handleAddToBasket(user, figure)}
           >
             Добавить в корзину
           </Button>

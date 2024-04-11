@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import Button from './UI/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainContext } from '../context';
-import PostService from '../API/PostService';
 import { observer } from 'mobx-react-lite';
+import handleDeleteFromBasket from '../utils/handleDeleteFromBasket';
 
 const CartContent = observer(() => {
   const navigate = useNavigate();
   const { user } = useContext(MainContext);
+
   const figureList = user.basket;
 
   return (
@@ -45,7 +46,7 @@ const CartContent = observer(() => {
                   <li className="cart__body-item item" key={product.id}>
                     <Link to={`/catalog/${product.id}`}>
                       <img
-                        src={product.img}
+                        src={`${import.meta.env.VITE_API_URL}/${product.img}`}
                         alt=""
                         width={47}
                         height={71}
@@ -57,13 +58,7 @@ const CartContent = observer(() => {
                     <Button
                       className="item__delete-button"
                       isSvg={true}
-                      onClick={() =>
-                        user.setBasket(
-                          user.basket.filter(
-                            (item: Figure) => item.id !== product.id,
-                          ),
-                        )
-                      }
+                      onClick={() => handleDeleteFromBasket(user, product)}
                     >
                       <svg
                         width="43.000000"

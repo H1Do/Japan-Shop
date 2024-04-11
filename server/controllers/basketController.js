@@ -12,14 +12,16 @@ class BasketController {
   }
 
   async delete(req, res) {
-    const { figure_id } = req.body;
-    const basket = await Basket.findOne({ where: { userId: req.user.id } });
-    const basket_figure = await BasketFigure.findOne({
-      where: { basketId: basket.id, figureId: figure_id },
-    });
-    if (basket_figure) {
-      basket_figure.destroy();
-      return res.json({ message: 'Товар успешно удалён из корзины' });
+    const { id } = req.params;
+    if (!isNaN(id)) {
+      const basket = await Basket.findOne({ where: { userId: req.user.id } });
+      const basket_figure = await BasketFigure.findOne({
+        where: { basketId: basket.id, figureId: id },
+      });
+      if (basket_figure) {
+        await basket_figure.destroy();
+        return res.json({ message: 'Товар успешно удалён из корзины' });
+      }
     }
     return res.status(404).json({ message: 'Товар не найден' });
   }
