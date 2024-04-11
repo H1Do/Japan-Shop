@@ -22,6 +22,8 @@ const OrderList = sequelize.define('order_list', {
 
 const Order = sequelize.define('order', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  price: { type: DataTypes.INTEGER, allowNull: false },
+  date: { type: DataTypes.DATE, allowNull: false },
 });
 
 const BasketFigure = sequelize.define('basket_figure', {
