@@ -11,6 +11,9 @@ const Header = observer(({ selectedItem }: Props) => {
   const { user } = useContext(MainContext);
 
   const logOut = () => {
+    if (!confirm('Выйти из аккаунта?')) {
+      return;
+    }
     user.setUser({});
     user.setIsAuth(false);
     user.setIsAdmin(false);

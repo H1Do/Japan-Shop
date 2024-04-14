@@ -19,7 +19,7 @@ const Line = ({ title, description, products, className, ...args }: Props) => {
           <li className="line__list-item" key={product.id}>
             <Link to={`catalog/${product.id}`} className="line__list-link">
               <img
-                src={product.img}
+                src={`${import.meta.env.VITE_API_URL}/${product.img}`}
                 alt="figure image"
                 width="300"
                 height="393"

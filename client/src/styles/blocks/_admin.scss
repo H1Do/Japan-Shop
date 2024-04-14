@@ -6,11 +6,15 @@
 
   &__inner {
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.904);
     border-radius: var(--border-radius);
   }
 
   &__actions {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+
     &-list {
       display: flex;
       flex-direction: column;
@@ -19,6 +23,33 @@
 
     &-button {
       width: 100%;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+
+    &-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 10px;
+
+      input {
+        width: 70%;
+      }
+    }
+  }
+
+  &__output {
+    &-title {
+      text-align: center;
     }
   }
 }

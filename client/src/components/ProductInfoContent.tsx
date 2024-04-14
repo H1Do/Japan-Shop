@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Button from './UI/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { MainContext } from './../context/index';
-import { fetchOneFigure } from '../API/figureAPI';
+import { fetchBrands, fetchOneFigure } from '../API/figureAPI';
 import handleAddToFavorite from '../utils/handleAddToFavorite';
 import handleAddToBasket from '../utils/handleAddToBasket';
 
@@ -18,13 +18,24 @@ const ProductInfoContent = ({ id }: Props) => {
     price: 0,
     id: 0,
   });
+  const [brand, setBrand] = useState<Brand>({
+    id: 0,
+    name: '',
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchOneFigure(id).then((data: Figure) => {
-      setFigure(data);
-      console.log(data);
-    });
+    fetchOneFigure(id)
+      .then((data: Figure) => {
+        setFigure(data);
+        console.log(data.brandId);
+        return data;
+      })
+      .then((data) =>
+        fetchBrands().then((brands) => {
+          setBrand(brands.find((item: Brand) => item.id === data.brandId));
+        }),
+      );
   }, []);
 
   return (
@@ -63,18 +74,13 @@ const ProductInfoContent = ({ id }: Props) => {
             height="573"
             className="product-info__image"
           />
-          <div className="product-info__extra">
-            Год издания: {}
-            <br />
-            Объем: {}
-            <br />
-            Опубликовано: {}
-            <br />
+
+          <div className="product-info__description">
+            <div className="product-info__extra">Брэнд: {brand.name}</div>
           </div>
-          <div className="product-info__description">{}</div>
         </main>
         <footer className="product-info__footer">
-          <div className="product-info__price">{figure.price}</div>
+          <div className="product-info__price">{figure.price}₽</div>
           <Button
             className="product-info__favorite-button"
             isSvg={true}

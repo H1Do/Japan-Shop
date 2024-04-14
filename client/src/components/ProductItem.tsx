@@ -28,7 +28,7 @@ const ProductItem = ({ className, item, ...args }: Props) => {
       <div className="product-item__name">
         {item.name.slice(20) ? item.name.slice(0, 20) + '...' : item.name}
       </div>
-      <div className="product-item__price">{item.price}</div>
+      <div className="product-item__price">{item.price}₽</div>
       <Button
         className="product-item__favorite-button"
         onClick={() => handleAddToFavorite(user, item)}

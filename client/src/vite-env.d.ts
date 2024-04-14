@@ -25,8 +25,14 @@ interface UsStore {
 interface FgStore {
   setBrands: (arg: Array<Brand>) => void;
   setFigures: (arg: Array<Figure>) => void;
+  setPage: (arg: number) => void;
+  setTotalPages: (arg: number) => void;
+  setLimit: (arg: number) => void;
   brands: Array<Brand>;
   figures: Array<Figure>;
+  page: number;
+  totalPages: number;
+  limit: number;
 }
 
 type User = {

@@ -26,8 +26,12 @@
 
     &-item {
       flex-shrink: 0;
-
       box-shadow: 6px 6px 15px var(--dark-gray-color);
+    }
+
+    &-image {
+      object-fit: cover;
+      object-position: top;
     }
   }
 }

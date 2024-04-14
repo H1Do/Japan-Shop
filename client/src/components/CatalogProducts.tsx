@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import SearchForm from './UI/SearchForm/SearchForm';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import Pagination from './Pagination';
 import { MainContext } from '../context';
@@ -9,26 +9,19 @@ import { observer } from 'mobx-react-lite';
 
 const CatalogProducts = observer(() => {
   const { figure }: { figure: FgStore } = useContext(MainContext);
-  const [query, setQuery] = useState('');
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetchFigures().then((data) => {
+    fetchFigures(figure.limit, figure.page, searchQuery).then((data) => {
       figure.setFigures(data.rows);
-      setProducts(figure.figures);
+      figure.setTotalPages(Math.ceil(data.count / figure.limit));
     });
-  }, []);
-
-  const showedProducts = useMemo(
-    () => products.slice((page - 1) * 9, page * 9),
-    [products, page],
-  );
+  }, [figure.page, searchQuery]);
 
   return (
     <section className="catalog-products container">
       <header className="catalog-products__header">
-        <SearchForm setQuery={setQuery} />
+        <SearchForm query={searchQuery} setQuery={setSearchQuery} />
         <div className="catalog-products__actions">
           <Link to="/favorite" className="products__actions-favorite">
             <svg
@@ -70,22 +63,22 @@ const CatalogProducts = observer(() => {
       </header>
       <main className="catalog-products__body">
         <ul className="catalog-products__list">
-          {products.length
-            ? showedProducts.map((item: Figure) => (
+          {figure.totalPages > 0
+            ? figure.figures.map((item: Figure) => (
                 <ProductItem
                   className="catalog-products__item"
                   item={item}
                   key={item.id}
                 />
               ))
-            : 'Книг не найдено'}
+            : 'Фигурок не найдено'}
         </ul>
-        {products.length / 9 > 1 ? (
+        {figure.totalPages > 1 ? (
           <Pagination
             className="catalog-products__pagination"
-            totalPages={products.length / 9}
-            currentPage={page}
-            setPage={setPage}
+            totalPages={figure.totalPages}
+            currentPage={figure.page}
+            setPage={figure.setPage.bind(figure)}
           />
         ) : (
           ''

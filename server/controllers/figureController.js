@@ -2,6 +2,7 @@ const uuid = require('uuid');
 const path = require('path');
 const { Figure, FigureInfo } = require('../models/models');
 const ApiError = require('../error/ApiError');
+const Sequelize = require('sequelize');
 
 class FigureController {
   async create(req, res, next) {
@@ -36,9 +37,24 @@ class FigureController {
   }
 
   async getAll(req, res) {
-    let { limit = 9, page = 1 } = req.query;
+    let { limit = 9, page = 1, search } = req.query;
     let offset = page * limit - limit;
-    const figures = await Figure.findAndCountAll({ limit, offset });
+
+    let whereClause = {};
+    if (search) {
+      whereClause = {
+        name: {
+          [Sequelize.Op.iLike]: `%${search}%`,
+        },
+      };
+    }
+
+    const figures = await Figure.findAndCountAll({
+      limit,
+      offset,
+      where: whereClause,
+    });
+
     return res.json(figures);
   }
 

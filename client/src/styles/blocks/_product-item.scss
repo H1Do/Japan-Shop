@@ -20,6 +20,7 @@
   &__image {
     border: 1px solid var(--blue-color);
     border-radius: var(--border-radius);
+    object-position: top;
     object-fit: cover;
   }
 
