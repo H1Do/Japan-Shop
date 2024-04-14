@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Button from './UI/Button/Button';
 import { fetchOneOrder } from '../API/ordersAPI';
 import { fetchOneFigure } from '../API/figureAPI';
+import { observer } from 'mobx-react-lite';
 
-const OrderInfoContent = () => {
+const OrderInfoContent = observer(() => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -15,24 +16,33 @@ const OrderInfoContent = () => {
     figures: [],
   });
 
-  useEffect(() => {
-    fetchOneOrder(params.id!).then((data) => {
-      setCurrentOrder({
-        id: data.order.id,
-        price: data.order.price,
-        date: data.order.date,
-        figures: [],
-      });
-      data.order_figures.map((item) =>
-        fetchOneFigure(item.id).then((result) =>
-          setCurrentOrder({
-            ...currentOrder,
-            figures: [...currentOrder.figures, result],
-          }),
-        ),
-      );
+  const getOrder = async () => {
+    const data = await fetchOneOrder(params.id!);
+
+    setCurrentOrder({
+      id: data.order.id,
+      price: data.order.price,
+      date: data.order.date,
+      figures: [],
     });
-  }, [params.id]);
+
+    const figurePromises = data.order_figures.map((item: Figure) =>
+      fetchOneFigure(item.id.toString()),
+    );
+    const figuresData = (await Promise.all(figurePromises)).map((item) =>
+      item !== null ? item : {},
+    );
+    console.log(figuresData);
+
+    setCurrentOrder((prevCurrentOrder) => ({
+      ...prevCurrentOrder,
+      figures: figuresData,
+    }));
+  };
+
+  useEffect(() => {
+    getOrder();
+  }, []);
 
   return (
     <div className="order-info container">
@@ -68,7 +78,7 @@ const OrderInfoContent = () => {
               <li className="order-info__body-item item" key={product.id}>
                 <Link to={`/catalog/${product.id}`}>
                   <img
-                    src={product.img}
+                    src={`${import.meta.env.VITE_API_URL}/${product.img}`}
                     alt=""
                     width={47}
                     height={71}
@@ -76,17 +86,17 @@ const OrderInfoContent = () => {
                   />
                 </Link>
                 <div className="item__name">{product.name}</div>
-                <div className="item__price">{product.price}$</div>
+                <div className="item__price">{product.price} ₽</div>
               </li>
             ))}
           </ul>
         </main>
         <footer className="order-info__footer">
-          <div className="order-info__price">{`Всего ${currentOrder.figures.length} за ${currentOrder.price}$`}</div>
+          <div className="order-info__price">{`Всего ${currentOrder.figures.length} за ${currentOrder.price} ₽`}</div>
         </footer>
       </div>
     </div>
   );
-};
+});
 
 export default OrderInfoContent;

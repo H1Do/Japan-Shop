@@ -40,7 +40,6 @@ function App() {
         data.map((basketFigure: { figureId: string }) => {
           if (basketFigure.figureId) {
             fetchOneFigure(basketFigure.figureId).then((figure) => {
-              console.log(figure);
               user.setBasket([...user.basket, figure]);
             });
           }

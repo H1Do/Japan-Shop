@@ -54,7 +54,7 @@ const CartContent = observer(() => {
                       />
                     </Link>
                     <div className="item__name">{product.name}</div>
-                    <div className="item__price">10$</div>
+                    <div className="item__price">{product.price} ₽</div>
                     <Button
                       className="item__delete-button"
                       isSvg={true}
@@ -102,8 +102,12 @@ const CartContent = observer(() => {
           </ul>
         </main>
         <footer className="cart__footer">
-          <div className="cart__price">{`Всего ${figureList.length} за ${figureList.length * 10}$`}</div>
-          <Button className="cart__cart-button" onClick={() => {}}>
+          <div className="cart__price">{`Всего ${figureList.length} за ${figureList.reduce((acc: number, item: Figure) => acc + item.price, 0)} ₽`}</div>
+          <Button
+            isLink={true}
+            pathTo="/orderreg"
+            className="cart__cart-button"
+          >
             Оформить заказ
           </Button>
         </footer>

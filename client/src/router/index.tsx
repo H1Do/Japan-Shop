@@ -8,6 +8,7 @@ import Favorite from '../pages/Favorite';
 import Orders from '../pages/Orders';
 import OrderInfo from '../pages/OrderInfo';
 import Admin from '../pages/Admin';
+import OrderRegistration from '../pages/OrderRegistration';
 
 export const adminRoutes = [{ path: '/admin', element: <Admin /> }];
 
@@ -20,6 +21,7 @@ export const privateRoutes = [
   { path: '/orders', element: <Orders /> },
   { path: '/cart', element: <Cart /> },
   { path: '/favorite', element: <Favorite /> },
+  { path: '/orderreg', element: <OrderRegistration /> },
   { path: '*', element: <Navigate to="/" replace /> },
 ];
 

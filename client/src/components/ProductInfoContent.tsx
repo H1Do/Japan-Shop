@@ -13,7 +13,7 @@ interface Props {
 const ProductInfoContent = ({ id }: Props) => {
   const { user } = useContext(MainContext);
   const [figure, setFigure] = useState<Figure>({
-    name: '',
+    name: 'Товар не найден',
     img: '',
     price: 0,
     id: 0,
@@ -25,17 +25,20 @@ const ProductInfoContent = ({ id }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchOneFigure(id)
-      .then((data: Figure) => {
-        setFigure(data);
-        console.log(data.brandId);
-        return data;
-      })
-      .then((data) =>
-        fetchBrands().then((brands) => {
-          setBrand(brands.find((item: Brand) => item.id === data.brandId));
-        }),
-      );
+    if (!isNaN(id)) {
+      fetchOneFigure(id)
+        .then((data: Figure & { brandId: number }) => {
+          setFigure(data);
+          console.log(data.brandId);
+          return data;
+        })
+        .then((data) =>
+          fetchBrands().then((brands) => {
+            setBrand(brands.find((item: Brand) => item.id === data.brandId));
+          }),
+        )
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   return (
@@ -80,7 +83,7 @@ const ProductInfoContent = ({ id }: Props) => {
           </div>
         </main>
         <footer className="product-info__footer">
-          <div className="product-info__price">{figure.price}₽</div>
+          <div className="product-info__price">{figure.price} ₽</div>
           <Button
             className="product-info__favorite-button"
             isSvg={true}

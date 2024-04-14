@@ -30,7 +30,7 @@ const ProductItem = ({ className, item, ...args }: Props) => {
       </div>
       <div className="product-item__price">{item.price}₽</div>
       <Button
-        className="product-item__favorite-button"
+        className={'product-item__favorite-button'}
         onClick={() => handleAddToFavorite(user, item)}
       >
         <svg

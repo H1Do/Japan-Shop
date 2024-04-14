@@ -54,7 +54,7 @@ const FavoriteContent = observer(() => {
                       />
                     </Link>
                     <div className="item__name">{product.name}</div>
-                    <div className="item__price">10$</div>
+                    <div className="item__price">{product.price} ₽</div>
                     <Button
                       className="item__add-cart-button"
                       isSvg={true}

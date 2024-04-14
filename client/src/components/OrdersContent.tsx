@@ -16,7 +16,7 @@ const OrdersContent = () => {
             {user.orders.map((order: Order) => (
               <li className="orders__body-item item" key={order.id}>
                 <div className="item__name">{`Заказ ${order.id} от ${order.date}`}</div>
-                <div className="item__price">{`${order.price}$`}</div>
+                <div className="item__price">{`${order.price} ₽`}</div>
                 <Button
                   isLink={true}
                   isSvg={true}
