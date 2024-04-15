@@ -26,8 +26,8 @@ const OrderInfoContent = observer(() => {
       figures: [],
     });
 
-    const figurePromises = data.order_figures.map((item: Figure) =>
-      fetchOneFigure(item.id.toString()),
+    const figurePromises = data.order_figures.map(
+      (item: { figureId: number }) => fetchOneFigure(item.figureId.toString()),
     );
     const figuresData = (await Promise.all(figurePromises)).map((item) =>
       item !== null ? item : {},

@@ -4,6 +4,10 @@ import { login, registration } from '../API/userAPI';
 import { MainContext } from '../context';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import { fetchOrders } from '../API/ordersAPI';
+import { fetchFavorite } from '../API/favoriteAPI';
+import { fetchBasket } from '../API/basketAPI';
+import { fetchOneFigure } from '../API/figureAPI';
 
 const SignUpContent = observer(() => {
   const { user } = useContext(MainContext);
@@ -33,6 +37,31 @@ const SignUpContent = observer(() => {
       setRequestError('');
       user.setUser(data);
       user.setIsAuth(true);
+
+      user.setOrders(await fetchOrders());
+
+      fetchFavorite().then((data) => {
+        user.setFavorite([]);
+
+        data.map((favoriteFigure: { figureId: string }) => {
+          if (favoriteFigure.figureId) {
+            fetchOneFigure(favoriteFigure.figureId).then((figure) => {
+              user.setFavorite([...user.favorite, figure]);
+            });
+          }
+        });
+      });
+
+      fetchBasket().then((data) => {
+        user.setBasket([]);
+        data.map((basketFigure: { figureId: string }) => {
+          if (basketFigure.figureId) {
+            fetchOneFigure(basketFigure.figureId).then((figure) => {
+              user.setBasket([...user.basket, figure]);
+            });
+          }
+        });
+      });
 
       if (data.role === 'ADMIN') {
         user.setIsAdmin(true);

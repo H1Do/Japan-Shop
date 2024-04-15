@@ -1,9 +1,12 @@
 import { useContext } from 'react';
 import { MainContext } from '../context';
 import Button from './UI/Button/Button';
+import { observer } from 'mobx-react-lite';
 
-const OrdersContent = () => {
+const OrdersContent = observer(() => {
   const { user } = useContext(MainContext);
+
+  const orderList = user.orders;
 
   return (
     <div className="orders container">
@@ -13,7 +16,7 @@ const OrdersContent = () => {
         </header>
         <main className="orders__body">
           <ul className="orders__body-list">
-            {user.orders.map((order: Order) => (
+            {orderList.map((order: Order) => (
               <li className="orders__body-item item" key={order.id}>
                 <div className="item__name">{`Заказ ${order.id} от ${order.date}`}</div>
                 <div className="item__price">{`${order.price} ₽`}</div>
@@ -49,6 +52,6 @@ const OrdersContent = () => {
       </div>
     </div>
   );
-};
+});
 
 export default OrdersContent;
