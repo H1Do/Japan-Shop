@@ -8,7 +8,10 @@ import { fetchFigures } from '../API/figureAPI';
 import { observer } from 'mobx-react-lite';
 
 const CatalogProducts = observer(() => {
-  const { figure }: { figure: FgStore } = useContext(MainContext);
+  const { figure }: { figure: FgStore } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {

@@ -6,7 +6,7 @@ interface Props {
   isLink?: boolean;
   pathTo?: string;
   buttonType?: 'submit' | 'reset' | 'button' | undefined;
-  className: string;
+  className?: string;
   isTransparent?: boolean;
   isSvg?: boolean;
   onClick?: () => void;

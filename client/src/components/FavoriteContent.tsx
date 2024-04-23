@@ -8,7 +8,10 @@ import handleDeleteFromFavorite from '../utils/handleDeleteFromFavorite';
 
 const FavoriteContent = observer(() => {
   const navigate = useNavigate();
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const productsList = user.favorite;
 
   return (

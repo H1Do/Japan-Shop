@@ -1,11 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import { publicRoutes, privateRoutes, adminRoutes } from '../router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { MainContext } from '../context';
 import { observer } from 'mobx-react-lite';
 
 const AppRouter = observer(() => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
 
   return user.isAuth ? (
     <Routes>

@@ -1,5 +1,11 @@
-import { jwtDecode } from 'jwt-decode';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { $authHost, $host } from './index';
+
+interface JwtPayloadWithUser extends JwtPayload {
+  role: string;
+  email: string;
+  password: string;
+}
 
 export const registration = async (email: string, password: string) => {
   const { data } = await $host.post('api/user/registration', {
@@ -8,7 +14,7 @@ export const registration = async (email: string, password: string) => {
     role: 'USER',
   });
   localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+  return jwtDecode<JwtPayloadWithUser>(data.token);
 };
 
 export const login = async (email: string, password: string) => {
@@ -17,11 +23,11 @@ export const login = async (email: string, password: string) => {
     password,
   });
   localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+  return jwtDecode<JwtPayloadWithUser>(data.token);
 };
 
 export const check = async () => {
   const { data } = await $authHost.get('api/user/auth');
   localStorage.setItem('token', data.token);
-  return jwtDecode(data.token);
+  return jwtDecode<JwtPayloadWithUser>(data.token);
 };

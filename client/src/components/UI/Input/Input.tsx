@@ -1,9 +1,32 @@
+import { ChangeEvent } from 'react';
+
 interface Props {
-  className: string;
+  name?: string;
+  type?: string;
+  required?: boolean;
+  value?: string | number;
+  className?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ className, ...args }: Props) => {
-  return <input type="tel" className={`input ${className}`} {...args} />;
+const Input = ({
+  name,
+  type = 'text',
+  required,
+  value,
+  className,
+  ...args
+}: Props) => {
+  return (
+    <input
+      name={name}
+      type={type}
+      required={required}
+      value={value}
+      className={`input ${className}`}
+      {...args}
+    />
+  );
 };
 
 export default Input;

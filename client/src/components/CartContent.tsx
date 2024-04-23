@@ -7,7 +7,10 @@ import handleDeleteFromBasket from '../utils/handleDeleteFromBasket';
 
 const CartContent = observer(() => {
   const navigate = useNavigate();
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
 
   const figureList = user.basket;
 

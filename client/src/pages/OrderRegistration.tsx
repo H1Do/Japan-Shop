@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 const OrderRegistration = observer(() => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const [address, setAddress] = useState('');
   const [telephone, setTelephone] = useState('');
   const navigate = useNavigate();
@@ -52,7 +55,7 @@ const OrderRegistration = observer(() => {
                 className="order-registration__form-input"
                 required
                 value={address}
-                onChange={(event: InputEvent) => {
+                onChange={(event) => {
                   setAddress(event.target.value);
                 }}
               />
@@ -65,7 +68,7 @@ const OrderRegistration = observer(() => {
                 type="tel"
                 required
                 value={telephone}
-                onChange={(event: InputEvent) => {
+                onChange={(event) => {
                   setTelephone(event.target.value);
                 }}
               />

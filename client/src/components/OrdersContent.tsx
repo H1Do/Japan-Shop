@@ -4,7 +4,10 @@ import Button from './UI/Button/Button';
 import { observer } from 'mobx-react-lite';
 
 const OrdersContent = observer(() => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
 
   const orderList = user.orders;
 

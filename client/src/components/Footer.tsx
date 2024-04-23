@@ -1,10 +1,12 @@
+import altLogoImg from '../images/logo-alt.svg';
+
 const Footer = () => {
   return (
     <footer className="footer container">
       <div className="footer__body">
         <a href="./" className="footer__logo logo">
           <img
-            src="./src/images/logo-alt.svg"
+            src={altLogoImg}
             alt="Japstore"
             width="158"
             height="41"

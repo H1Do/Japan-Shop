@@ -10,7 +10,10 @@ import { fetchFavorite } from './API/favoriteAPI';
 import { fetchOrders } from './API/ordersAPI';
 
 function App() {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ function App() {
 
     check()
       .then((data) => {
-        user.setUser(true);
+        user.setUser({ email: data.email, password: data.password });
         user.setIsAuth(true);
 
         if (data.role === 'ADMIN') {

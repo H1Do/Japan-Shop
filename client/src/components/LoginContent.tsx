@@ -8,9 +8,13 @@ import { fetchOrders } from '../API/ordersAPI';
 import { fetchFavorite } from '../API/favoriteAPI';
 import { fetchBasket } from '../API/basketAPI';
 import { fetchOneFigure } from '../API/figureAPI';
+import axios, { AxiosError } from 'axios';
 
 const SignUpContent = observer(() => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const [isRegistration, setIsRegistration] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -35,7 +39,7 @@ const SignUpContent = observer(() => {
       }
 
       setRequestError('');
-      user.setUser(data);
+      user.setUser({ email: data.email, password: data.password });
       user.setIsAuth(true);
 
       user.setOrders(await fetchOrders());
@@ -68,7 +72,19 @@ const SignUpContent = observer(() => {
       }
       navigate('/');
     } catch (error) {
-      setRequestError(error.response.data.message);
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.data) {
+          const errorResponseData = axiosError.response.data as {
+            message: string;
+          };
+          const errorMessage: string = errorResponseData.message;
+          setRequestError(errorMessage);
+        }
+      } else {
+        const unknownError = error as Error;
+        setRequestError(unknownError.message);
+      }
     }
   };
 

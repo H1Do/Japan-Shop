@@ -11,7 +11,10 @@ interface Props {
 }
 
 const ProductItem = ({ className, item, ...args }: Props) => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
 
   return (
     <li className={`${className} product-item`} {...args}>

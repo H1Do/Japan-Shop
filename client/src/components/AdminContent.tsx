@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from './UI/Button/Button';
 import { createBrand, createFigure, fetchBrands } from '../API/figureAPI';
 import Input from './UI/Input/Input';
@@ -12,10 +12,10 @@ const AdminContent = () => {
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [files, setFiles] = useState(undefined);
+  const [files, setFiles] = useState<FileList | null>(null);
   const [brandId, setBrandId] = useState(0);
 
-  const addFigure = (event: SubmitEvent) => {
+  const addFigure = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (brandId === 0) {
@@ -25,8 +25,10 @@ const AdminContent = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', String(price));
-    formData.append('img', files[0]);
-    formData.append('brandId', brandId);
+    if (files) {
+      formData.append('img', files[0]);
+    }
+    formData.append('brandId', brandId.toString());
 
     setName('');
     setPrice(0);
@@ -38,7 +40,7 @@ const AdminContent = () => {
     });
   };
 
-  const addBrand = (event: SubmitEvent) => {
+  const addBrand = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     createBrand(name).then((result) => {
       console.log(result);
@@ -111,7 +113,9 @@ const AdminContent = () => {
                 type="text"
                 required
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setName(event.target.value);
+                }}
               />
             </label>
             <label className="admin__form-label">
@@ -121,7 +125,9 @@ const AdminContent = () => {
                 type="number"
                 required
                 value={price}
-                onChange={(event) => setPrice(event.target.value)}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setPrice(+event.target.value);
+                }}
               />
             </label>
             <label className="admin__form-label">
@@ -130,7 +136,11 @@ const AdminContent = () => {
                 name="img"
                 type="file"
                 required
-                onChange={(event) => setFiles(event.target.files)}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  if (event.target) {
+                    setFiles(event.target.files);
+                  }
+                }}
               />
             </label>
             <label className="admin__form-label">
@@ -138,7 +148,11 @@ const AdminContent = () => {
               <select
                 name="brand"
                 value={brandId}
-                onChange={(event) => setBrandId(event.target.value)}
+                onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                  if (event.target) {
+                    setBrandId(+event.target.value);
+                  }
+                }}
               >
                 <option value={0} disabled>
                   Выбрать бренд

@@ -2,19 +2,23 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MainContext } from '../context';
 import { observer } from 'mobx-react-lite';
+import logoImg from '../images/logo.svg';
 
 interface Props {
   selectedItem: string;
 }
 
 const Header = observer(({ selectedItem }: Props) => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
 
   const logOut = () => {
     if (!confirm('Выйти из аккаунта?')) {
       return;
     }
-    user.setUser({});
+    user.setUser({ email: '', password: '' });
     user.setIsAuth(false);
     user.setIsAdmin(false);
     localStorage.removeItem('token');
@@ -23,12 +27,7 @@ const Header = observer(({ selectedItem }: Props) => {
   return (
     <header className="header container">
       <Link to="/" className="header__logo logo">
-        <img
-          src="/src/images/logo.svg"
-          alt="Japstore"
-          width="158"
-          height="41"
-        />
+        <img src={logoImg} alt="Japstore" width="158" height="41" />
       </Link>
       <nav className="header__menu">
         <ul className="header__menu-list">

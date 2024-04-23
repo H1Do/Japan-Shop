@@ -11,7 +11,10 @@ interface Props {
 }
 
 const ProductInfoContent = ({ id }: Props) => {
-  const { user } = useContext(MainContext);
+  const { user } = useContext(MainContext) as {
+    user: UsStore;
+    figure: FgStore;
+  };
   const [figure, setFigure] = useState<Figure>({
     name: 'Товар не найден',
     img: '',
@@ -25,7 +28,7 @@ const ProductInfoContent = ({ id }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isNaN(id)) {
+    if (!isNaN(+id)) {
       fetchOneFigure(id)
         .then((data: Figure & { brandId: number }) => {
           setFigure(data);
