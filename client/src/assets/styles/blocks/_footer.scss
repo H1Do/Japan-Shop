@@ -1,0 +1,41 @@
+.footer {
+  max-height: 408px;
+  overflow-y: hidden;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 230px 85px 90px;
+  margin-top: auto;
+  background: url('/src/assets/images/footer-bg.svg') left / cover no-repeat;
+  color: var(--gray-color);
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+  }
+
+  &__description {
+    font-weight: 700;
+    max-width: 389px;
+  }
+
+  &__about-us,
+  &__support {
+    &-title {
+      color: var(--white-color);
+      font-weight: 500;
+    }
+    &-link {
+      @include reset-link;
+
+      transition-duration: var(--transition-duration);
+
+      @include hover {
+        color: var(--pink-color);
+      }
+    }
+  }
+}

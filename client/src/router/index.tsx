@@ -1,14 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import Catalog from '../pages/Catalog';
-import Main from '../pages/Main';
-import ProductInfo from '../pages/ProductInfo';
-import Login from '../pages/Login';
-import Cart from '../pages/Cart';
-import Favorite from '../pages/Favorite';
-import Orders from '../pages/Orders';
-import OrderInfo from '../pages/OrderInfo';
-import Admin from '../pages/Admin';
-import OrderRegistration from '../pages/OrderRegistration';
+import Admin from '../pages/AdminPage/components/Admin';
+import Cart from '../pages/CartPage/components/Cart';
+import Catalog from '../pages/CatalogPage/components/Catalog';
+import Favorite from '../pages/FavoritePage/components/Favorite';
+import Main from '../pages/MainPage/components/Main';
+import OrderInfo from '../pages/OrderInfoPage/components/OrderInfo';
+import OrderRegistration from '../pages/OrderRegistrationPage/components/OrderRegistration';
+import Orders from '../pages/OrdersPage/components/Orders';
+import ProductInfo from '../pages/ProductInfoPage/components/ProductInfo';
+import Login from '../pages/LoginPage/components/Login';
 
 export const adminRoutes = [{ path: '/admin', element: <Admin /> }];
 

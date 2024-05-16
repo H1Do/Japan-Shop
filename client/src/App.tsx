@@ -1,13 +1,13 @@
 import { BrowserRouter } from 'react-router-dom';
-import './styles/styles.scss';
-import AppRouter from './components/AppRouter';
+import './assets/styles/styles.scss';
 import { useContext, useEffect, useState } from 'react';
 import { MainContext } from './context';
-import { check } from './API/userAPI';
-import { fetchBasket } from './API/basketAPI';
+import { check } from './pages/LoginPage/API/userAPI';
+import { fetchBasket } from './pages/CartPage/API/basketAPI';
 import { fetchOneFigure } from './API/figureAPI';
-import { fetchFavorite } from './API/favoriteAPI';
-import { fetchOrders } from './API/ordersAPI';
+import { fetchFavorite } from './pages/FavoritePage/API/favoriteAPI';
+import { fetchOrders } from './pages/OrdersPage/API/ordersAPI';
+import AppRouter from './modules/AppRouter/components/AppRouter';
 
 function App() {
   const { user } = useContext(MainContext) as {
