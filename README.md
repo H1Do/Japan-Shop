@@ -20,7 +20,7 @@ JapShop is an e-commerce store for collectible Japanese figurines. This project 
    ```
 2. Install dependencies for client and server:
    ```bash
-     cd japshop/client
+     cd Japan-Shop/client
      npm install 
      cd ../server 
      npm install
